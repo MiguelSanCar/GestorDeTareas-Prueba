@@ -1,0 +1,73 @@
+/* Complementa a Bootstrap. Los colores usan sus variables, así que siguen el tema claro/oscuro. */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+/* El tablero ocupa todo el alto restante y cada carril (.lane) se estira hasta abajo
+   sin dibujarse: es la zona de soltado. La caja (.column) solo mide lo que su contenido. */
+#board {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  padding: 1rem 1.5rem 1.5rem;
+  align-items: stretch;
+}
+
+.lane { min-width: 0; }
+
+.column {
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: .75rem;
+  padding: .75rem;
+  transition: background .15s, outline-color .15s;
+}
+.column h2 { margin: 0 0 .75rem; font-size: 1rem; font-weight: 600; }
+.count { color: var(--bs-secondary-color); font-weight: normal; }
+.column ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.column.drag-over {
+  background: var(--bs-primary-bg-subtle);
+  outline: 2px dashed var(--bs-primary);
+  outline-offset: -2px;
+}
+
+.card[draggable="true"] { cursor: grab; }
+.card.dragging { opacity: .4; }
+.card h3 { overflow-wrap: anywhere; }
+.card .card-text { overflow-wrap: anywhere; white-space: pre-wrap; }
+
+.card .actions { display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+.card .center-actions { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; }
+.card .actions .btn.move {
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  font-weight: bold;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(13, 110, 253, .35);
+  transition: transform .1s;
+}
+.card .actions .btn.move:hover:not(:disabled) { transform: scale(1.1); }
+.card .actions .btn.move:disabled { box-shadow: none; opacity: .35; }
+
+dialog {
+  width: min(480px, calc(100vw - 2rem));
+  padding: 1.5rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: .75rem;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+}
+dialog::backdrop { background: rgba(10, 15, 25, .6); }
+dialog .close { position: absolute; top: 1rem; right: 1rem; }
+#create-form { display: grid; gap: .9rem; }
+#create-form textarea { resize: vertical; }

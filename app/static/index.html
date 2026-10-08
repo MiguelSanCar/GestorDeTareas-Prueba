@@ -1,0 +1,68 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestor de tareas</title>
+  <link rel="stylesheet" href="/static/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/theme.js"></script>
+</head>
+<body>
+  <header class="container-fluid px-4 pt-3">
+    <div class="topbar">
+      <h1 class="h3 mb-0">Gestor de tareas</h1>
+      <div class="d-flex gap-2">
+        <button type="button" id="theme-toggle" class="btn btn-outline-secondary"></button>
+        <button type="button" id="open-create" class="btn btn-primary">+ Añadir</button>
+      </div>
+    </div>
+    <p id="error" class="alert alert-danger mt-3 mb-0" role="alert" hidden></p>
+  </header>
+
+  <dialog id="create-dialog" aria-labelledby="create-title">
+    <button type="button" class="btn-close close" id="close-create" aria-label="Cerrar"></button>
+    <h2 id="create-title" class="h5 mb-3">Nueva tarea</h2>
+    <form id="create-form" autocomplete="off" novalidate>
+      <div>
+        <label class="form-label" for="new-title">Título</label>
+        <input id="new-title" class="form-control" maxlength="200">
+      </div>
+      <div>
+        <label class="form-label" for="new-description">Descripción (opcional)</label>
+        <textarea id="new-description" class="form-control" maxlength="2000" rows="4"></textarea>
+      </div>
+      <div>
+        <label class="form-label" for="new-status">Estado</label>
+        <select id="new-status" class="form-select">
+          <option value="pending" selected>Pendiente</option>
+          <option value="in_progress">En progreso</option>
+          <option value="done">Completada</option>
+        </select>
+      </div>
+      <p id="create-error" class="alert alert-danger mb-0" role="alert" hidden></p>
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-outline-secondary" id="cancel-create">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Añadir</button>
+      </div>
+    </form>
+  </dialog>
+
+  <main id="board">
+    <div class="lane"><section class="column" data-status="pending">
+      <h2>Pendientes <span class="count"></span></h2>
+      <ul></ul>
+    </section></div>
+    <div class="lane"><section class="column" data-status="in_progress">
+      <h2>En progreso <span class="count"></span></h2>
+      <ul></ul>
+    </section></div>
+    <div class="lane"><section class="column" data-status="done">
+      <h2>Completadas <span class="count"></span></h2>
+      <ul></ul>
+    </section></div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
